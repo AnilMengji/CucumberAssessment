@@ -1,5 +1,5 @@
 @API
-Feature: Testing GET API
+Feature: To Test API request and responses
 
   Scenario: Testing GET request and storing response in a file
     Given I have a GET API endpoint

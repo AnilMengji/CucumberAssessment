@@ -1,6 +1,8 @@
 package StepDefinitions;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,8 +33,9 @@ public class API_TestCases {
 	private static final String BASE_URL = "https://reqres.in/";
 	private static final String RESPONSE_FILE_PATH = "C:\\\\Users\\\\HOME\\\\Downloads\\\\Test\\\\resp.json";
 	private static final String ENDPOINT = "api/users";
-	private static final String REQUEST_BODY_FILE_PATH = "C:\\Users\\HOME\\Downloads\\Test\\create_user.json";
+	//private static final String REQUEST_BODY_FILE_PATH = "C:\\Users\\HOME\\Downloads\\Test\\create_user.json";
 
+	
 	private Response response;
 	String EndPoint = "api/users/2";
 
@@ -137,25 +140,34 @@ public class API_TestCases {
 	@When("I send a POST request with user details")
 	public void i_send_a_post_request_with_user_details() {
 
-		RequestSpecification request = RestAssured.given();
+		
+		try {
+			FileInputStream fis = new FileInputStream(new File("C:\\Users\\HOME\\eclipse-workspace\\newworkspace\\CucumberAssessment\\JSONFileInput\\Create_User.json"));
+			
+			RestAssured.baseURI=BASE_URL+EndPoint;
+			RequestSpecification  request = RestAssured.given();
+			
+			request.header("Content-Type","application/json");
+			request.and().body(fis).when().post("/posts").then().statusCode(201);
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 
-		JSONObject requestparams = new JSONObject();
-
-		requestparams.put("name", "morpheus");
-		requestparams.put("job", "leader");
-
-		request.header("ContentType", "application/json");
-
-		request.body(requestparams.toJSONString());
-
-		System.out.println(response.getStatusCode());
+		
+		
+		
 
 	}
 
 	@Then("I should receive a successful response with status code {int}")
 	public void i_should_receive_a_successful_response_with_status_code(Integer int1) {
 
-		// System.out.println(response.getStatusCode());
+			
+		
 
 	}
 
