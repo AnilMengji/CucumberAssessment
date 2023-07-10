@@ -8,8 +8,8 @@ import io.cucumber.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-tags = "@API",
-features="src/test/resources/Features/Api.feature",
+tags = "@Datatransform",
+features="src/test/resources/Features/Datatransform.feature",
 glue = {"StepDefinitions"},
 plugin = {"json:target/cucumber.json"},
 monochrome = true)
