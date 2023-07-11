@@ -20,10 +20,10 @@ public class DataComparison_Steps {
 	String InputFilepath1 =".//Data//Instrument_Details.csv";
     String InputFilepath2 =".//Data//Position_Details.csv";
     //create two empty string array for output file
-    String reportFile_line1[] = new String[5];
-    String reportFile_line2[] = new String[5];
-    reportFile_line1[0] = "PR01";
-    reportFile_line2[0] = "PR02";
+    String write_line1[] = new String[5];
+    String write_line2[] = new String[5];
+    write_line1[0] = "PR01";
+    write_line2[0] = "PR02";
 
     //Read all lines from input file1
     CSVReader reader_file1 = new CSVReader(new FileReader(InputFilepath1));
@@ -36,12 +36,12 @@ public class DataComparison_Steps {
         //Read CSV line by line and use the string array as you want
         for (String[] row : allRows) {
             if (i == 1) {
-                reportFile_line1[2] = row[2];
-                reportFile_line1[4] = row[3];
+            	write_line1[2] = row[2];
+            	write_line2[4] = row[3];
             }
             if (i == 2) {
-                reportFile_line2[2] = row[2];
-                reportFile_line2[4] = row[3];
+            	write_line2[2] = row[2];
+            	write_line2[4] = row[3];
             }
             i++;
         }
@@ -57,12 +57,12 @@ public class DataComparison_Steps {
         //read data from input file2 and write into output file
         for (String[] row : allRows_PositionTable) {
             if (count == 1) {
-                reportFile_line1[1] = row[0];
-                reportFile_line1[3] = row[2];
+            	write_line1[1] = row[0];
+            	write_line1[3] = row[2];
             }
             if (count == 2) {
-                reportFile_line2[1] = row[0];
-                reportFile_line2[3] = row[2];
+            	write_line2[1] = row[0];
+            	write_line2[3] = row[2];
             }
             count++;
         }
@@ -73,34 +73,26 @@ public class DataComparison_Steps {
 
     //Writing data to the csv file
     writer.writeNext(line1);
-    String R1C3=reportFile_line1[3];
-    String R1C4=reportFile_line1[4];
+    String R1C3=write_line1[3];
+    String R1C4=write_line1[4];
 
     int totalPriceRow1=Integer.parseInt(R1C3)*Integer.parseInt(R1C4);
-    reportFile_line1[4]=String.valueOf(totalPriceRow1);
+    write_line1[4]=String.valueOf(totalPriceRow1);
 
 
-    String R2C3=reportFile_line2[3];
-    String R2C4=reportFile_line2[4];
+    String R2C3=write_line2[3];
+    String R2C4=write_line2[4];
 
     int totalPriceRow2=Integer.parseInt(R2C3)*Integer.parseInt(R2C4);
-    reportFile_line2[4]=String.valueOf(totalPriceRow2);
+    write_line2[4]=String.valueOf(totalPriceRow2);
 
-    writer.writeNext(reportFile_line1);
-    writer.writeNext(reportFile_line2);
+    writer.writeNext(write_line1);
+    writer.writeNext(write_line2);
 
     //Flushing data from writer to file
     writer.flush();
 }
-
-
-
-	
-	
-	
-	
-	
-	
+		
 	
 	
 }
